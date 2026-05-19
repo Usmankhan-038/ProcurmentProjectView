@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ProcurmentProjectView</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ProcurmentProjectView.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="container-fluid p-0">
+        <div class="d-flex" style="min-height: 100vh; width: 100%;">
+
+            <!-- Sidebar: Fixed 100px -->
+            <nav id="sidebar" class="shadow" style="width: 100px; min-width: 200px;">
+                <div class="p-3 text-center border-bottom border-secondary">
+                    <strong class="d-block" style="font-size: 14px;">Procurment App</strong>
+                </div>
+
+                <ul class="nav flex-column mt-3 text-left">
+                    <li class="nav-item">
+                        <a class="nav-link text-black px-1 py-2 border-bottom border-secondary" asp-controller="Home" asp-action="Index">
+                            <small class="d-block">Dashboard</small>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-1 py-2 text-black border-bottom border-secondary" asp-controller="Home" asp-action="Privacy">
+                            <small class="d-block">Purchase Requisition</small>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Main Content: Takes up ALL remaining space -->
+            <div id="content" class="flex-grow-1 bg-light px-4 py-4">
+                <main role="main">
+                    @RenderBody()
+                </main>
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2026 - ProcurmentProjectView - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
