@@ -11,6 +11,66 @@ a {
   color: #0077cc;
 }
 
+.app-shell {
+  min-height: 100vh;
+  background: #f4f6fb;
+}
+
+.app-shell__body {
+  min-height: 100vh;
+}
+
+.app-sidebar {
+  width: 260px;
+  min-width: 260px;
+  background: #ffffff;
+  border-right: 1px solid #e5e7eb;
+}
+
+.app-sidebar__brand {
+  padding: 1.5rem 1.25rem;
+}
+
+.app-sidebar__brand strong {
+  font-size: 1.1rem;
+}
+
+.app-sidebar__nav {
+  padding: 1rem 0.75rem 1.5rem;
+  gap: 0.25rem;
+}
+
+.app-sidebar .nav-link {
+  color: #1f2937;
+  border-radius: 0.65rem;
+  padding: 0.7rem 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 500;
+}
+
+.app-sidebar .nav-link:hover,
+.app-sidebar .nav-link:focus {
+  background: #eef2ff;
+  color: #1e40af;
+}
+
+.app-sidebar__subnav {
+  margin-top: 0.35rem;
+  padding-left: 1.75rem;
+  gap: 0.15rem;
+}
+
+.app-sidebar__subnav .nav-link {
+  padding: 0.45rem 0.5rem;
+  font-size: 0.95rem;
+}
+
+.app-content {
+  min-height: 100vh;
+}
+
 .btn-primary {
   color: #fff;
   background-color: #1b6ec2;

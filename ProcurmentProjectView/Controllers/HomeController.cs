@@ -23,6 +23,26 @@ namespace ProcurmentProjectView.Controllers
             return View("PurchaseReqi");
         }
 
+        public IActionResult AddProduct()
+        {
+            return View();
+        }
+
+        public IActionResult ProductList()
+        {
+            return View();
+        }
+
+        public IActionResult ViewProduct()
+        {
+            return View();
+        }
+
+        public IActionResult UpdateProduct()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
