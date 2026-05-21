@@ -23,11 +23,7 @@ namespace ProcurmentProjectView.Controllers
             return View("PurchaseReqi");
         }
 
-        public IActionResult AddProduct()
-        {
-            return View();
-        }
-
+     
         public IActionResult ProductList()
         {
             return View();

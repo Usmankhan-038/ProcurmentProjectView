@@ -27,5 +27,19 @@ namespace ProcurmentProjectView.Controllers
             }
             return View(null);
         }
+        [HttpGet]
+        public IActionResult AddProduct()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> SaveProduct(ProductModel prod)
+        {
+            var addProductApiUrl = ApiEndPoints.AddProduct();
+            var token = User.FindFirst("AccessToken")?.Value ?? "";
+            var response = await _baseApiService.PostAsync<Respo>(addProductApiUrl, prod, token;
+            return View();
+        }
+
     }
 }
