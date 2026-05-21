@@ -4,6 +4,6 @@ namespace ProcurmentProjectView.Interfaces
 {
     public interface IAuthService
     {
-         Task<TokenResponseModel> AuthenticationAsync(LoginViewModel login);
+         Task<ResponseModel<string>> AuthenticationAsync(LoginViewModel login);
     }
 }

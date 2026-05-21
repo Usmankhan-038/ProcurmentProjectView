@@ -10,6 +10,11 @@ builder.Services.AddHttpClient<IAuthService,AuthService>(client =>
 {
     client.BaseAddress = new Uri(baseUrl!);
 });
+builder.Services.AddHttpClient<IBaseApiService, BaseServices>(client =>
+{
+    client.BaseAddress = new Uri(baseUrl!);
+});
+
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, config =>
