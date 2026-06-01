@@ -78,5 +78,14 @@ namespace ProcurmentProjectView.Services
                 return new ResponseModel<TResponse> { Message = $"Server Error: {e.Message}", Success = false };
             }      
         }
+
+        public async Task<ResponseModel<TResponse>> DeleteAsync<TRequest, TResponse>(string url, int id,string token)
+        {
+            try
+            {
+                if(!string.IsNullOrEmpty(token))
+            }
+            return new ResponseModel<TResponse> { Message = "" };
+        }
     }
 }

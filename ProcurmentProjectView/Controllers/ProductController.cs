@@ -37,8 +37,20 @@ namespace ProcurmentProjectView.Controllers
         {
             var addProductApiUrl = ApiEndPoints.AddProduct();
             var token = User.FindFirst("AccessToken")?.Value ?? "";
-            var response = await _baseApiService.PostAsync<Respo>(addProductApiUrl, prod, token;
-            return View();
+            var response = await _baseApiService.PostAsync<ProductModel, ProductModel>(addProductApiUrl, prod, token);
+            if(response.Success)
+            {
+                return RedirectToAction("ProductList");
+            }
+            ModelState.AddModelError("", response.Message);
+            return View("AddProduct");
+        }
+        [HttpDelete]
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            var deleteProductApiUrl = ApiEndPoints.deleteProduct();
+            var token = User.FindFirst("AccessToken")?.Value ?? "";
+            var response = await _baseApiService.D
         }
 
     }

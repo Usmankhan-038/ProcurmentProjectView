@@ -9,16 +9,16 @@ namespace ProcurmentProjectView.Models
         public int Id { get; set; }
 
         [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        public string company { get; set; } // already lowercase, matches API
+        public string Name { get; set; } = default!;
+        [JsonPropertyName("company")]
+        public string Company { get; set; } = default!;
 
         [JsonPropertyName("description")]
-        public string Description { get; set; }
+        public string Description { get; set; } = default!;
 
         [JsonPropertyName("upc")]
-        public string Upc { get; set; }
-
-        public DateTime createdAt { get; set; } // already camelCase, matches API
+        public string Upc { get; set; } = default!;
+        
+        public DateTime createdAt { get; set; } 
     }
 }

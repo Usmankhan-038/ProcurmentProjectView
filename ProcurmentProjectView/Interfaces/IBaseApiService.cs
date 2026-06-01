@@ -1,4 +1,5 @@
-﻿using ProcurmentProjectView.Models;
+﻿using Microsoft.AspNetCore.Identity.Data;
+using ProcurmentProjectView.Models;
 
 namespace ProcurmentProjectView.Interfaces
 {
@@ -6,6 +7,7 @@ namespace ProcurmentProjectView.Interfaces
     {
         public Task<ResponseModel<T>> GetApiResponse<T>(string url, string token);
         public Task<ResponseModel<TResponse>> PostAsync<TRequest,TResponse>(string url, TRequest Data, string token);
+        public Task<ResponseModel<TResponse>> DeleteAsync<TRequest, TResponse>(string url, int id, string token);
 
     }
 }

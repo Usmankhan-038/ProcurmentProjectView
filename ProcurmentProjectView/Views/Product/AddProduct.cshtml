@@ -11,29 +11,30 @@
 
     <div class="card border-0 shadow-sm">
         <div class="card-body">
-            <form>
+            <form asp-action="SaveProduct" asp-controller="Product" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="row g-3">
                     <div class="col-md-6">
                         <label class="form-label">Product Name</label>
-                        <input type="text" class="form-control" placeholder="Enter product name" />
+                        <input type="text" asp-for="Name" class="form-control" placeholder="Enter product name" />
                     </div>
                
                     <div class="col-md-6">
                         <label class="form-label">Company</label>
-                        <input type="text" class="form-control" placeholder="Merik" />
+                        <input type="text" asp-for="Company" class="form-control" placeholder="Merik" />
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Description</label>
-                        <input type="text" class="form-control" placeholder="10 PC" />
+                        <input type="text" asp-for="Description" class="form-control" placeholder="10 PC" />
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">UPC</label>
-                        <input type="text" class="form-control" placeholder="UPC" />
+                        <input type="text" asp-for="Upc" class="form-control" placeholder="UPC" />
                     </div>
                 </div>
                 <div class="mt-4">
-                    <button type="button" class="btn btn-primary">Save Product</button>
-                    <button type="button" class="btn btn-outline-secondary ms-2">Clear</button>
+                    <button type="submit" class="btn btn-primary">Save Product</button>
+                    <button type="reset" class="btn btn-outline-secondary ms-2">Clear</button>
                 </div>
             </form>
         </div>
