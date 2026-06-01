@@ -1,0 +1,28 @@
+@{
+    ViewData["Title"] = "View Product";
+}
+@model ProcurmentProjectView.Models.ProductModel
+<div class="container-fluid ps-4 pt-4">
+    <div class="mb-4">
+        <h1 class="display-6 fw-bold mb-1">View Product</h1>
+        <p class="text-muted mb-0">Product details overview.</p>
+    </div>
+
+    <div class="card border-0 shadow-sm" style="max-width: 100%;">
+        <div class="card-body">
+            <dl class="row mb-0">
+                <dt class="col-sm-4 text-muted">Product Name</dt>
+                <dd class="col-sm-8">@Model.Name</dd>
+                <dt class="col-sm-4 text-muted">Company</dt>
+                <dd class="col-sm-8">@Model.Company</dd>
+                <dt class="col-sm-4 text-muted">UPC</dt>
+                <dd class="col-sm-8">@Model.Upc</dd>
+                <dt class="col-sm-4 text-muted">Created Date</dt>
+                <dd class="col-sm-8">@Model.createdAt</dd>
+                <dt class="col-sm-4 text-muted">Description</dt>
+                <dd class="col-sm-8">@Model.Description</dd>
+             
+            </dl>
+        </div>
+    </div>
+</div>

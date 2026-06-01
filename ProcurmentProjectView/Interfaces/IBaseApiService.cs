@@ -7,7 +7,9 @@ namespace ProcurmentProjectView.Interfaces
     {
         public Task<ResponseModel<T>> GetApiResponse<T>(string url, string token);
         public Task<ResponseModel<TResponse>> PostAsync<TRequest,TResponse>(string url, TRequest Data, string token);
-        public Task<ResponseModel<TResponse>> DeleteAsync<TRequest, TResponse>(string url, int id, string token);
+        public Task<ResponseModel<TResponse>> DeleteAsync<TRequest, TResponse>(string url, string token, int id = 0 );
+        public Task<ResponseModel<TResponse>> UpdateAsync<TRequest, TResponse>(string url, TRequest Data, string token);
 
     }
 }
+ 

@@ -39,8 +39,8 @@
                                <td>@item.Upc</td>
                                <td>@item.Description</td>
                                <td class="text-end">
-                                  <a class="btn btn-link text-danger p-0 me-2" asp-controller="Product" asp-action="DeleteProduct" asp-route-itemid="@item.Id"><i class="bi bi-trash"></i></a>
-                                 <a class="btn btn-link text-primary p-0 me-2" asp-controller="Home" asp-action="ViewProduct"><i class="bi bi-eye"></i></a>
+                                 <a class="btn btn-link text-danger p-0 me-2" asp-controller="Product" asp-action="DeleteProduct" asp-route-id="@item.Id"><i class="bi bi-trash"></i></a>
+                                 <a class="btn btn-link text-primary p-0 me-2" asp-controller="Product" asp-action="ViewProduct" asp-route-id="@item.Id"><i class="bi bi-eye"></i></a>
                                  <a class="btn btn-link text-success p-0" asp-controller="Home" asp-action="UpdateProduct"><i class="bi bi-pencil-square"></i></a>
                                </td>
                              </tr>

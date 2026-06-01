@@ -13,13 +13,13 @@
     <div class="container-fluid p-0 app-shell">
         <div class="d-flex app-shell__body">
 
-            <nav id="sidebar" class="app-sidebar shadow-sm">
+            <nav id="sidebar" class="app-sidebar shadow-sm d-flex flex-column">
                 <div class="app-sidebar__brand border-bottom">
                     <strong class="d-block">Procurment App</strong>
                     <small class="text-muted">Operations</small>
                 </div>
 
-                <ul class="nav flex-column app-sidebar__nav">
+                <ul class="nav flex-column app-sidebar__nav flex-grow-1">
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="Home" asp-action="Index">
                             <i class="bi bi-speedometer2"></i>
@@ -51,6 +51,15 @@
                         <a class="nav-link" asp-controller="Home" asp-action="Privacy">
                             <i class="bi bi-clipboard-check"></i>
                             <span>Purchase Requisition</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <ul class="nav flex-column app-sidebar__nav mt-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" asp-controller="Login" asp-action="Logout">
+                            <i class="bi bi-box-arrow-right"></i>
+                            <span>Logout</span>
                         </a>
                     </li>
                 </ul>
