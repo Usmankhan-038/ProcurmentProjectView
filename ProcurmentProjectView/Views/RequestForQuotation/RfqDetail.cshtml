@@ -1,0 +1,177 @@
+@{
+    ViewData["Title"] = "RFQ Details";
+}
+
+<div class="container-fluid ps-4 pt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="display-6 fw-bold mb-1">RFQ Details</h1>
+            <p class="text-muted mb-0">View RFQ information and associated PR details.</p>
+        </div>
+        <div>
+            <!-- The two buttons requested -->
+            <button type="button" class="btn text-white me-2" style="background-color: #28a745;" data-bs-toggle="modal" data-bs-target="#supplierModal">
+                <i class="bi bi-envelope"></i> Send Email to Supplier
+            </button>
+            <a asp-controller="RequestForQuotation" asp-action="Create" class="btn text-white" style="background-color: #0F52BA;">
+                <i class="bi bi-plus-lg"></i> Add RFQ
+            </a>
+        </div>
+    </div>
+
+    <!-- RFQ & PR Details in a full-width card -->
+    <div class="card border-0 shadow-sm mb-4 w-100">
+        <div class="card-header bg-white border-bottom-0 pt-4 pb-0">
+            <h5 class="fw-bold text-primary mb-0"><i class="bi bi-info-circle me-2"></i>RFQ & PR Summary</h5>
+        </div>
+        <div class="card-body">
+            <div class="row g-4 mb-4 border-bottom pb-4">
+                <div class="col-12">
+                    <h6 class="fw-bold text-secondary text-uppercase mb-3">RFQ Information</h6>
+                </div>
+                <div class="col-md-4">
+                    <p class="text-muted mb-1 small text-uppercase fw-bold">RFQ Number</p>
+                    <p class="mb-0 fs-5 fw-bold text-dark">RFQ-5001</p>
+                </div>
+                <div class="col-md-4">
+                    <p class="text-muted mb-1 small text-uppercase fw-bold">Status</p>
+                    <p class="mb-0 fs-5"><span class="badge bg-warning text-dark">Pending</span></p>
+                </div>
+                <div class="col-md-4">
+                    <p class="text-muted mb-1 small text-uppercase fw-bold">Attachment</p>
+                    <a href="#" class="mb-0 fs-5 text-decoration-none"><i class="bi bi-paperclip"></i> specs_doc.pdf</a>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-12">
+                    <h6 class="fw-bold text-secondary text-uppercase mb-3">Associated PR Details</h6>
+                </div>
+                <div class="col-md-3">
+                    <p class="text-muted mb-1 small text-uppercase fw-bold">PR Number</p>
+                    <p class="mb-0 fs-5 text-dark">PR-1001</p>
+                </div>
+                <div class="col-md-3">
+                    <p class="text-muted mb-1 small text-uppercase fw-bold">Estimated Budget</p>
+                    <p class="mb-0 fs-5">$15,000</p>
+                </div>
+                <div class="col-md-3">
+                    <p class="text-muted mb-1 small text-uppercase fw-bold">Quantity</p>
+                    <p class="mb-0 fs-5">50</p>
+                </div>
+                <div class="col-md-3">
+                    <p class="text-muted mb-1 small text-uppercase fw-bold">Delivery Date</p>
+                    <p class="mb-0 fs-5">2026-10-15</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Supplier Selection Modal -->
+<div class="modal fade" id="supplierModal" tabindex="-1" aria-labelledby="supplierModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header bg-light border-bottom-0">
+                <h5 class="modal-title fw-bold" id="supplierModalLabel">Select Suppliers</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-muted mb-4">Select the suppliers you wish to send this RFQ to.</p>
+                
+                <form id="sendEmailForm">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th style="width: 50px;">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="selectAllSuppliers">
+                                        </div>
+                                    </th>
+                                    <th>Supplier Name</th>
+                                    <th>Company</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="form-check">
+                                            <input class="form-check-input supplier-checkbox" type="checkbox" name="supplierIds" value="1">
+                                        </div>
+                                    </td>
+                                    <td class="fw-bold">John Doe</td>
+                                    <td>Acme Corp</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-check">
+                                            <input class="form-check-input supplier-checkbox" type="checkbox" name="supplierIds" value="2">
+                                        </div>
+                                    </td>
+                                    <td class="fw-bold">Jane Smith</td>
+                                    <td>Global Tech Supplies</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-check">
+                                            <input class="form-check-input supplier-checkbox" type="checkbox" name="supplierIds" value="3">
+                                        </div>
+                                    </td>
+                                    <td class="fw-bold">Bob Johnson</td>
+                                    <td>Industrial Solutions Ltd.</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-check">
+                                            <input class="form-check-input supplier-checkbox" type="checkbox" name="supplierIds" value="4">
+                                        </div>
+                                    </td>
+                                    <td class="fw-bold">Alice Brown</td>
+                                    <td>Office Essentials</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer border-top-0 bg-light">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn text-white" style="background-color: #0F52BA;" onclick="sendRfqEmail()">
+                    <i class="bi bi-send me-1"></i> Send Email
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // "Select All" checkbox logic
+            $('#selectAllSuppliers').change(function() {
+                $('.supplier-checkbox').prop('checked', $(this).prop('checked'));
+            });
+
+            // Update "Select All" if individual boxes change
+            $('.supplier-checkbox').change(function() {
+                if ($('.supplier-checkbox:checked').length === $('.supplier-checkbox').length) {
+                    $('#selectAllSuppliers').prop('checked', true);
+                } else {
+                    $('#selectAllSuppliers').prop('checked', false);
+                }
+            });
+        });
+
+        function sendRfqEmail() {
+            const selectedSuppliers = $('.supplier-checkbox:checked').length;
+            if (selectedSuppliers === 0) {
+                alert('Please select at least one supplier.');
+                return;
+            }
+            // Trigger actual submission logic here
+            alert(`Sending email to ${selectedSuppliers} supplier(s)...`);
+            $('#supplierModal').modal('hide');
+        }
+    </script>
+}

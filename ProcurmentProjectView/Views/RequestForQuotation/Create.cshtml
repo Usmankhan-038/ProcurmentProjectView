@@ -1,0 +1,51 @@
+@{
+    ViewData["Title"] = "Create RFQ";
+}
+
+<div class="container-fluid ps-4 pt-4">
+    <div class="mb-4">
+        <h1 class="display-6 fw-bold mb-1">Create Request for Quotation (RFQ)</h1>
+        <p class="text-muted mb-0">Generate a new RFQ by selecting a Purchase Requisition.</p>
+    </div>
+
+    <div class="card border-0 shadow-sm mb-4" style="max-width: 800px;">
+        <div class="card-body">
+            <form id="rfqForm" enctype="multipart/form-data">
+                <div class="row g-4">
+                    <div class="col-md-12">
+                        <label class="form-label fw-bold">Select Purchase Requisition (PR)</label>
+                        <select class="form-select" name="prId" id="prId">
+                            <option value="">-- Select PR --</option>
+                            <option value="1">PR-1001: Office Supplies (Qty: 50, Budget: $500)</option>
+                            <option value="2">PR-1002: Laptops for IT (Qty: 10, Budget: $15000)</option>
+                            <option value="3">PR-1003: Marketing Materials (Qty: 1000, Budget: $200)</option>
+                        </select>
+                        <div class="form-text">Choose the PR to associate with this RFQ.</div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Status</label>
+                        <select class="form-select" name="Status" id="Status">
+                            <option value="Draft">Draft</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Open">Open</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Attachment</label>
+                        <input class="form-control" type="file" name="Attachment" id="Attachment">
+                        <div class="form-text">Upload any relevant specifications or documents.</div>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <button type="button" class="btn text-white" style="background-color: #0F52BA; padding: 10px 25px;" onclick="alert('Static layout: Submit RFQ Data via AJAX')">
+                        Create RFQ
+                    </button>
+                    <a asp-action="RfqList" class="btn btn-outline-secondary ms-2">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

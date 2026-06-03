@@ -1,41 +1,115 @@
+@model ProcurmentProjectView.Models.CreatePrRequestModel
+
 @{
-    ViewData["Title"] = "View Product";
+    ViewData["Title"] = "PR Details";
 }
 
-@model ProcurmentProjectView.Models.ProductModel
-
 <div class="container-fluid ps-4 pt-4">
-    <!-- Use Flexbox to align header and button -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h1 class="display-6 fw-bold mb-1">View Product</h1>
-            <p class="text-muted mb-0">Product details overview.</p>
+            <h1 class="display-6 fw-bold mb-1">Purchase Requisition Details</h1>
+            <p class="text-muted mb-0">View PR and associated products.</p>
         </div>
         <div>
-            <a asp-controller="Product" asp-action="AddProduct" class="btn text-white" style="background-color: #0F52BA; border-radius: 10px; padding: 10px 20px;">
-                Add Product
+            <a asp-controller="PurchaseRequisition" asp-action="PrList" class="btn btn-outline-secondary me-2">
+                Back to List
+            </a>
+            <a asp-controller="PurchaseRequisition" asp-action="Edit" class="btn text-white" style="background-color: #0F52BA;">
+                Edit PR
             </a>
         </div>
     </div>
 
-    <div class="card border-0 shadow-sm" style="max-width: 100%;">
+    <!-- PR Details - Full Width Card -->
+    <div class="card border-0 shadow-sm mb-4 w-100">
+        <div class="card-header bg-white border-bottom-0 pt-4 pb-0">
+            <h5 class="fw-bold text-primary mb-0"><i class="bi bi-file-earmark-text me-2"></i>PR Summary</h5>
+        </div>
         <div class="card-body">
-            <dl class="row mb-0">
-                <dt class="col-sm-4 fw-bold text-secondary">Product Name</dt>
-                <dd class="col-sm-8">@Model.Name</dd>
-
-                <dt class="col-sm-4 fw-bold text-secondary">Company</dt>
-                <dd class="col-sm-8">@Model.Company</dd>
-
-                <dt class="col-sm-4 fw-bold text-secondary">UPC</dt>
-                <dd class="col-sm-8">@Model.Upc</dd>
-
-                <dt class="col-sm-4 fw-bold text-secondary">Created Date</dt>
-                <dd class="col-sm-8">@Model.createdAt</dd>
-
-                <dt class="col-sm-4 fw-bold text-secondary">Description</dt>
-                <dd class="col-sm-8">@Model.Description</dd>
-            </dl>
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <p class="text-muted mb-1 small text-uppercase fw-bold">Title</p>
+                    <p class="mb-0 fs-5">@Model.PrRequest.Title</p>
+                </div>
+                <div class="col-md-3">
+                    <p class="text-muted mb-1 small text-uppercase fw-bold">Estimated Budget</p>
+                    <p class="mb-0 fs-5">@Model.PrRequest.EstimatedBudget</p>
+                </div>
+                <div class="col-md-3">
+                    <p class="text-muted mb-1 small text-uppercase fw-bold">Quantity</p>
+                    <p class="mb-0 fs-5">@Model.PrRequest.Quantity</p>
+                </div>
+                <div class="col-md-3">
+                    <p class="text-muted mb-1 small text-uppercase fw-bold">Delivery Date</p>
+                    <p class="mb-0 fs-5">@Model.PrRequest.DeliveryDate</p>
+                </div>
+                <div class="col-12">
+                    <p class="text-muted mb-1 small text-uppercase fw-bold">Note</p>
+                    <div class="p-3 bg-light rounded border-start border-4 border-primary">
+                        <p class="mb-0">@Model.PrRequest.Note</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
+    <!-- Products List -->
+    <div class="d-flex justify-content-between align-items-center mb-3 mt-4">
+        <h4 class="fw-bold mb-0">Products</h4>
+        <button type="button" class="btn btn-sm btn-outline-success" onclick="alert('Static functionality - implement add product')">
+            <i class="bi bi-plus-lg"></i> Add Product
+        </button>
+    </div>
+
+    <div class="row g-3">
+        @if(Model.Products != null && Model.Products.Any())
+        {
+            @foreach(var product in Model.Products)
+            {
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm h-100 product-card position-relative">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h5 class="card-title fw-bold text-dark mb-0">@product.Name</h5>
+                                <div class="action-buttons">
+                                    <button class="btn btn-sm btn-link text-success p-0 me-2" title="Edit" onclick="alert('Static functionality - edit product')">
+                                        <i class="bi bi-pencil-square fs-5"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-link text-danger p-0" title="Delete" onclick="alert('Static functionality - delete product')">
+                                        <i class="bi bi-trash fs-5"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <h6 class="card-subtitle mb-3 text-muted">@product.Company</h6>
+                            
+                            <div class="mb-2">
+                                <span class="badge bg-secondary me-1">UPC:</span>
+                                <span class="text-dark fw-medium">@product.Upc</span>
+                            </div>
+                            <p class="card-text text-muted small mt-3">@product.Description</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12">
+                <div class="alert alert-light border text-center py-4 text-muted" role="alert">
+                    <i class="bi bi-box-seam d-block mb-2 fs-3"></i>
+                    No products associated with this PR.
+                </div>
+            </div>
+        }
+    </div>
 </div>
+
+<style>
+    .product-card {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .product-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+    }
+</style>

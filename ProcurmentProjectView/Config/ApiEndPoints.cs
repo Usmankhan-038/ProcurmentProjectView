@@ -1,4 +1,4 @@
-﻿namespace ProcurmentProjectView.Config
+namespace ProcurmentProjectView.Config
 {
     public class ApiEndPoints
     {
@@ -9,5 +9,6 @@
         public static string UpdateProductById(int id) => $"/api/Product/update-product?prodId={id}";
         public static string deleteProduct() => "/api/Product/delete-product";
         public static string PrDetail() => "/api/PurchasedRequisition/get-pr-detail";
+        public static string GetAllPrRequest() => "/api/PurchasedRequisition/get-all-pr-request";
     }
 }

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ProcurmentProjectView.Config;
+using ProcurmentProjectView.DTOs;
 using ProcurmentProjectView.Interfaces;
 using ProcurmentProjectView.Models;
 using System.Diagnostics;
@@ -18,7 +19,7 @@ namespace ProcurmentProjectView.Controllers
             _baseApiService = baseApiService;
         }
 
-        public async Task<IActionResult> PrDetail()
+        public async Task<IActionResult> Index()
         {
             var getPrDetail = ApiEndPoints.PrDetail();
             var token = User.FindFirst("AccessToken")?.Value;
@@ -27,18 +28,19 @@ namespace ProcurmentProjectView.Controllers
                 return View("Login");
             }
 
-            var response = await _baseApiService.GetApiResponse<PrDetailModel>(getPrDetail,token);
+            var response = await _baseApiService.GetApiResponse<PrDataDto>(getPrDetail,token);
             if (!response.Success && response.Message == "Unauthorized")
             {
                 return RedirectToAction("Login", "Login");
             }
             if (response.Success)
             {
-                return View(response.Data);
+                return View(response.Data); // Pass PrDataDto to the view
             }
-            return View("Index");
-            
+            return View();
         }
+
+       
 
         public IActionResult Privacy()
         {

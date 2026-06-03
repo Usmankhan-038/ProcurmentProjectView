@@ -1,0 +1,131 @@
+@model ProcurmentProjectView.Models.CreatePrRequestModel
+
+@{
+    ViewData["Title"] = "Add Purchase Requisition";
+}
+
+<div class="container-fluid ps-4 pt-4">
+    <div class="mb-4">
+        <h1 class="display-6 fw-bold mb-1">Add Purchase Requisition</h1>
+        <p class="text-muted mb-0">Create a new PR and add products.</p>
+    </div>
+
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+            <form id="prForm">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                
+                <h4 class="mb-3">PR Details</h4>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Title</label>
+                        <input type="text" asp-for="PrRequest.Title" class="form-control" placeholder="Enter PR Title" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Estimated Budget</label>
+                        <input type="text" asp-for="PrRequest.EstimatedBudget" class="form-control" placeholder="Enter Estimated Budget" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Quantity</label>
+                        <input type="number" asp-for="PrRequest.Quantity" class="form-control" placeholder="Enter Quantity" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Delivery Date</label>
+                        <input type="date" asp-for="PrRequest.DeliveryDate" class="form-control" />
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label">Note</label>
+                        <textarea asp-for="PrRequest.Note" class="form-control" rows="3" placeholder="Enter notes"></textarea>
+                    </div>
+                </div>
+
+                <hr class="my-4" />
+                
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="mb-0">Add Products</h4>
+                    <button type="button" class="btn btn-sm btn-outline-primary" id="addProductBtn">
+                        <i class="bi bi-plus"></i> Add Another Product
+                    </button>
+                </div>
+                
+                <div id="productsContainer">
+                    <!-- Dynamic Product Rows -->
+                    <div class="product-item border rounded p-3 mb-3 bg-light position-relative">
+                        <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0 m-2 remove-product-btn">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <label class="form-label">Product Name</label>
+                                <input type="text" name="Products[0].Name" class="form-control" placeholder="Enter product name" />
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Company</label>
+                                <input type="text" name="Products[0].Company" class="form-control" placeholder="Enter company name" />
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Description</label>
+                                <input type="text" name="Products[0].Description" class="form-control" placeholder="Enter description" />
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">UPC</label>
+                                <input type="text" name="Products[0].Upc" class="form-control" placeholder="Enter UPC" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <button type="button" class="btn btn-primary" onclick="alert('Static page - implement submission logic')">Save PR & Products</button>
+                    <button type="reset" class="btn btn-outline-secondary ms-2">Clear</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            let productIndex = 1;
+            
+            $('#addProductBtn').click(function () {
+                const html = `
+                    <div class="product-item border rounded p-3 mb-3 bg-light position-relative">
+                        <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0 m-2 remove-product-btn">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <label class="form-label">Product Name</label>
+                                <input type="text" name="Products[${productIndex}].Name" class="form-control" placeholder="Enter product name" />
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Company</label>
+                                <input type="text" name="Products[${productIndex}].Company" class="form-control" placeholder="Enter company name" />
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Description</label>
+                                <input type="text" name="Products[${productIndex}].Description" class="form-control" placeholder="Enter description" />
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">UPC</label>
+                                <input type="text" name="Products[${productIndex}].Upc" class="form-control" placeholder="Enter UPC" />
+                            </div>
+                        </div>
+                    </div>
+                `;
+                $('#productsContainer').append(html);
+                productIndex++;
+            });
+
+            $(document).on('click', '.remove-product-btn', function () {
+                if ($('.product-item').length > 1) {
+                    $(this).closest('.product-item').remove();
+                } else {
+                    alert("At least one product is required.");
+                }
+            });
+        });
+    </script>
+}

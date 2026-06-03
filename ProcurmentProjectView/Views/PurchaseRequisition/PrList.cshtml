@@ -1,18 +1,20 @@
+@model IEnumerable<ProcurmentProjectView.Models.PurchasedRequisitionModel>
+
 @{
-    ViewData["Title"] = "Product List";
+    ViewData["Title"] = "Purchase Requisition List";
 }
-@model IEnumerable<ProcurmentProjectView.Models.ProductModel>
 
 <div class="container-fluid ps-4 pt-4">
     <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
         <div>
-            <h1 class="display-6 fw-bold mb-1">Product List</h1>
-            <p class="text-muted mb-0">Browse and manage product records.</p>
+            <h1 class="display-6 fw-bold mb-1">Purchase Requisitions</h1>
+            <p class="text-muted mb-0">Browse and manage PR records.</p>
         </div>
-        @* <div class="input-group" style="max-width: 320px;">
-            <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
-            <input type="text" class="form-control" placeholder="Search products" />
-        </div> *@
+        <div>
+            <a asp-controller="PurchaseRequisition" asp-action="Create" class="btn text-white" style="background-color: #0F52BA; border-radius: 10px; padding: 10px 20px;">
+                Create PR
+            </a>
+        </div>
     </div>
 
     <div class="card border-0 shadow-sm">
@@ -20,42 +22,50 @@
             <table class="table align-middle mb-0">
                 <thead class="table-light">
                     <tr>
-                        <th>Product</th>
-                        <th>Category</th>
-                        <th>Price</th>
-                        <th>Stock</th>
+                        <th>Title</th>
+                        <th>Est. Budget</th>
+                        <th>Quantity</th>
+                        <th>Delivery Date</th>
+                        <th>Note</th>
                         <th class="text-end">Actions</th>
                     </tr>
                 </thead>
-                    <tbody>
+                <tbody>
                     @if(Model != null && Model.Any())
-                   {
-                       @foreach(var item in Model)
-                       {
-                           
-                             <tr>
-                               <td>@item.Name</td>
-                               <td>@item.Company</td>
-                               <td>@item.Upc</td>
-                               <td>@item.Description</td>
-                               <td class="text-end">
-                                 <a class="btn btn-link text-danger p-0 me-2" asp-controller="Product" asp-action="DeleteProduct" asp-route-id="@item.Id"><i class="bi bi-trash"></i></a>
-                                 <a class="btn btn-link text-primary p-0 me-2" asp-controller="Product" asp-action="ViewProduct" asp-route-id="@item.Id"><i class="bi bi-eye"></i></a>
-                                 <a class="btn btn-link text-success p-0" asp-controller="Product" asp-action="UpdateProduct" asp-route-id ="@item.Id"><i class="bi bi-pencil-square"></i></a>
-                               </td>
-                             </tr>
-                       }
-                   } 
+                    {
+                        @foreach(var item in Model)
+                        {
+                            <tr>
+                                <td class="fw-bold">@item.Title</td>
+                                <td>@item.EstimatedBudget</td>
+                                <td>@item.Quantity</td>
+                                <td>@item.DeliveryDate.ToString("yyyy-MM-dd")</td>
+                                <td class="text-truncate" style="max-width: 200px;" title="@item.Note">@item.Note</td>
+                                <td class="text-end">
+                                    <!-- Dynamic edit/delete/view icons -->
+                                    <a class="btn btn-link text-danger p-0 me-2" asp-controller="PurchaseRequisition" asp-action="Delete" asp-route-id="@item.Id" title="Delete">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                    <a class="btn btn-link text-primary p-0 me-2" asp-controller="PurchaseRequisition" asp-action="Details" asp-route-id="@item.Id" title="View Details">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a class="btn btn-link text-success p-0" asp-controller="PurchaseRequisition" asp-action="Edit" asp-route-id="@item.Id" title="Edit">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    } 
                     else
-                   {
+                    {
                         <tr>
-                            <td colspan="5" class="text-center py-4 text-muted">
-                                <i class="bi bi-box-seam d-block mb-2 fs-3"></i>
-                                No Data Found
+                            <td colspan="6" class="text-center py-4 text-muted">
+                                <i class="bi bi-file-earmark-text d-block mb-2 fs-3"></i>
+                                No PRs Found
                             </td>
                         </tr>
-                   }
-                   </tbody>
+                    }
+                </tbody>
             </table>
         </div>
     </div>

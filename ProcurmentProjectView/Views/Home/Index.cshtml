@@ -1,4 +1,6 @@
-﻿@{
+@model ProcurmentProjectView.DTOs.PrDataDto
+
+@{
     ViewData["Title"] = "Dashboard";
 }
 
@@ -13,29 +15,46 @@
             <div class="card border-0 shadow-sm bg-light text-dark">
                 <div class="card-header border-0 bg-transparent opacity-75">Total PR</div>
                 <div class="card-body">
-                    <h2 class="card-title fw-bold">12</h2>
+                    <h2 class="card-title fw-bold">@(Model != null ? Model.TotalPrCount : 0)</h2>
                 </div>
             </div>
         </div>
 
-        <!-- Card 2 -->
-        <div class="col-md-6 mb-4">
-            <div class="card border-0 shadow-sm bg-light text-dark">
-                <div class="card-header border-0 bg-transparent opacity-75">Pending PR</div>
-                <div class="card-body">
-                    <h2 class="card-title fw-bold">5</h2>
+        <!-- Loop through status counts to create cards dynamically -->
+        @if (Model != null && Model.PrStatusCount != null)
+        {
+            foreach (var status in Model.PrStatusCount)
+            {
+                <div class="col-md-6 mb-4">
+                    <div class="card border-0 shadow-sm bg-light text-dark">
+                        <div class="card-header border-0 bg-transparent opacity-75 text-capitalize">@status.RfqStatus PR</div>
+                        <div class="card-body">
+                            <h2 class="card-title fw-bold">@status.TotalCount</h2>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <!-- Fallback if no status counts available -->
+            <div class="col-md-6 mb-4">
+                <div class="card border-0 shadow-sm bg-light text-dark">
+                    <div class="card-header border-0 bg-transparent opacity-75">Pending PR</div>
+                    <div class="card-body">
+                        <h2 class="card-title fw-bold">0</h2>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Card 3 -->
-        <div class="col-md-6 mb-4">
-            <div class="card border-0 shadow-sm bg-light text-dark">
-                <div class="card-header border-0 bg-transparent opacity-75">Approved PR</div>
-                <div class="card-body">
-                    <h2 class="card-title fw-bold">7</h2>
+            <div class="col-md-6 mb-4">
+                <div class="card border-0 shadow-sm bg-light text-dark">
+                    <div class="card-header border-0 bg-transparent opacity-75">Approved PR</div>
+                    <div class="card-body">
+                        <h2 class="card-title fw-bold">0</h2>
+                    </div>
                 </div>
             </div>
-        </div>
+        }
     </div>
 </div>

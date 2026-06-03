@@ -1,0 +1,83 @@
+@model ProcurmentProjectView.DTOs.PrDataDto
+
+@{
+    ViewData["Title"] = "PR Dashboard";
+}
+
+<div class="container-fluid ps-4 pt-4">
+    <div class="mb-4">
+        <h1 class="display-6 fw-bold mb-1">Purchase Requisition Dashboard</h1>
+        <p class="text-muted mb-0">Overview of PR requests and statuses.</p>
+    </div>
+
+    <!-- Static Dashboard Layout -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card bg-primary text-white border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Total PR Requests</h5>
+                    <!-- Static dummy data as requested for UI -->
+                    <h2 class="display-4 fw-bold">3</h2>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="card bg-success text-white border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Approved</h5>
+                    <h2 class="display-4 fw-bold">2</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card bg-info text-white border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Open</h5>
+                    <h2 class="display-4 fw-bold">1</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card bg-warning text-dark border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Pending</h5>
+                    <h2 class="display-4 fw-bold">7</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card border-0 shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title mb-3">Status Summary</h5>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Status</th>
+                            <th>Total Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Static rows representing PrStatusCount -->
+                        <tr>
+                            <td><span class="badge bg-success">approved</span></td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge bg-info">open</span></td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge bg-warning text-dark">pending</span></td>
+                            <td>7</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
