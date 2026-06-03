@@ -140,7 +140,7 @@ namespace ProcurmentProjectView.Services
                     PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase
                 };
                 var requestContent = JsonContent.Create(Data, options: serializeOptions);
-                var response = await _client.PutAsync(url, requestContent);
+                var response = await _client.PostAsync(url, requestContent);
 
                 var deserializeOptions = new System.Text.Json.JsonSerializerOptions
                 {

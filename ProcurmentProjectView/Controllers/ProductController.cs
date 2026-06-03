@@ -82,7 +82,7 @@ namespace ProcurmentProjectView.Controllers
                 return RedirectToAction("Login", "Login");
             }
             var queryUrl = deleteProductApiUrl + $"?prodId={id}";
-            var response = await _baseApiService.DeleteAsync<ProductModel, ProductModel>(deleteProductApiUrl, token);
+            var response = await _baseApiService.DeleteAsync<ProductModel, ProductModel>(queryUrl, token);
 
             if (!response.Success && response.Message == "Unauthorized")
             {
@@ -119,6 +119,54 @@ namespace ProcurmentProjectView.Controllers
             }
             return RedirectToAction("ProductList", "ProductList");
            
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> UpdateProduct(int id)
+        {
+            var getProductById = ApiEndPoints.GetProductById(id);
+            var token = User.FindFirst("AccessToken")?.Value;
+
+            if (string.IsNullOrWhiteSpace(token))
+            {
+                return RedirectToAction("Login", "Login");
+            }
+
+            var response = await _baseApiService.GetApiResponse<ProductModel>(getProductById, token);
+            if (!response.Success && response.Message == "Unauthorized")
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            if (response.Success)
+            {
+                return View(response.Data);
+            }
+            return RedirectToAction("ProductList", "Product");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditProduct(ProductModel prod)
+        {
+            var updateProduct = ApiEndPoints.UpdateProductById(prod.Id);
+            var token = User.FindFirst("AccessToken")?.Value;
+
+            if (string.IsNullOrWhiteSpace(token))
+            {
+                return RedirectToAction("Login", "Login");
+            }
+
+            var response = await _baseApiService.UpdateAsync<ProductModel,ProductModel>(updateProduct,prod, token);
+            if (!response.Success && response.Message == "Unauthorized")
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            if (response.Success)
+            {
+                return RedirectToAction("ProductList");
+            }
+            return RedirectToAction("ProductList", "Product");
+
+
         }
     }
 }

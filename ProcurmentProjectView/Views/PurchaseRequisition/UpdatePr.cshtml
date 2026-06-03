@@ -1,0 +1,41 @@
+@{
+    ViewData["Title"] = "Update Product";
+}
+@model ProcurmentProjectView.Models.ProductModel
+
+<div class="container-fluid ps-4 pt-4">
+    <div class="mb-4">
+        <h1 class="display-6 fw-bold mb-1">Update Product</h1>
+        <p class="text-muted mb-0">Edit product information.</p>
+    </div>
+
+    <div class="card border-0 shadow-sm" style="max-width: 720px;">
+        <div class="card-body">
+            <form asp-action="EditProduct" asp-controller="Product" method="post" >
+                <div class="row g-3">
+                    <input type="hidden" asp-for="Id" value="@Model.Id" />
+                    <div class="col-md-6">
+                        <label class="form-label">Product Name</label>
+                        <input type="text" class="form-control" asp-for="Name" value="@Model.Name" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Company</label>
+                        <input type="text" class="form-control" asp-for="Company" value="@Model.Company" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">UPC</label>
+                        <input type="text" class="form-control"asp-for="Upc" value="@Model.Upc" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Description</label>
+                        <input type="text" class="form-control" asp-for="Description" value="@Model.Description" />
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary">Update Product</button>
+                    <button type="reset" class="btn btn-outline-secondary ms-2">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
