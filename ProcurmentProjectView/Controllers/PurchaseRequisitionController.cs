@@ -1,25 +1,106 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
+using ProcurmentProjectView.Config;
+using ProcurmentProjectView.Interfaces;
+using ProcurmentProjectView.Models;
+using System.Threading.Tasks;
 
 namespace ProcurmentProjectView.Controllers
 {
     public class PurchaseRequisitionController : Controller
     {
-        // GET: PrController
-        public ActionResult PrDetail()
+        private readonly IBaseApiService _baseApiService;
+
+        public PurchaseRequisitionController(IBaseApiService baseApiService)
         {
-            return View();
+            _baseApiService = baseApiService;
+        }
+     
+        public async Task<ActionResult> PrList()
+        {
+            var getAllPr = ApiEndPoints.GetAllPrRequest();
+            var token = User.FindFirst("AccessToken")?.Value;
+
+            if (string.IsNullOrEmpty(token))
+            {
+                return RedirectToAction("Login","Login");
+            }
+            var response = await _baseApiService.GetApiResponse<List<PrDetailResponseModel>>(getAllPr, token);
+            if (!response.Success && response.Message == "Unauthorized")
+            {
+                return View("Login");
+            }
+            else if (!response.Success)
+            {
+                ModelState.AddModelError("", response.Message);
+                return View();
+            }
+            else
+            {
+                return View(response.Data);
+            }
+            
         }
 
-        // GET: PrController/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Detail(int id)
         {
-            return View();
+            var getPrById = ApiEndPoints.GetPurchasedRequisitionById(id);
+            var token = User.FindFirst("AccessToken")?.Value;
+
+            if (string.IsNullOrEmpty(token))
+            {
+                return View("Login");
+            }
+
+            var response = await _baseApiService.GetApiResponse<PrDetailResponseModel>(getPrById, token);
+            if (!response.Success && response.Message == "Unauthorized")
+            {
+                return View("Login", "Login");
+            }
+            else if (!response.Success)
+            {
+                ModelState.AddModelError("", response.Message);
+                return View("ViewPr");
+            }
+            else
+            {
+                return View("ViewPr", response.Data);
+            }
         }
 
-        // GET: PrController/Create
+        [HttpGet]
         public ActionResult Create()
         {
+            return View();
+        }
+        [HttpPost]
+        public async Task<ActionResult> SavePrResult(CreatePrRequestModel prRequestModel)
+        {
+            var addPurhasedRequisition = ApiEndPoints.AddPurchasedRequisition();
+            var token = User.FindFirst("AccessToken")?.Value;
+
+            if (string.IsNullOrEmpty(token))
+            {
+                return View("Login", "Login");
+            }
+
+            var response = await _baseApiService.PostAsync<CreatePrRequestModel, CreatePrRequestModel>(addPurhasedRequisition, prRequestModel,token);
+            if(!response.Success && response.Message == "Unauthorized")
+            {
+                return View("Login", "Login");
+
+            }
+            else if (!response.Success)
+            {
+                ModelState.AddModelError("", response.Message);
+                return View("Create");
+            }
+            else if(response.Success)
+            {
+                return View("PrList");
+
+            }
             return View();
         }
 
@@ -38,46 +119,76 @@ namespace ProcurmentProjectView.Controllers
             }
         }
 
-        // GET: PrController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            var getPrById = ApiEndPoints.GetPurchasedRequisitionById(id);
+            var token = User.FindFirst("AccessToken")?.Value;
+
+            if (string.IsNullOrEmpty(token))
+            {
+                return View("Login","Login");
+            }
+
+            var response = await _baseApiService.GetApiResponse<PrDetailResponseModel>(getPrById, token);
+            if (!response.Success && response.Message == "Unauthorized")
+            {
+                return View("Login","Login");
+            }
+            else if (!response.Success)
+            {
+                ModelState.AddModelError("", response.Message);
+                return View("UpdatePr");
+            }
+            else
+            {
+                return View("UpdatePr", response.Data);
+            }
         }
 
-        // POST: PrController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(int id, PrDetailResponseModel model)
         {
-            try
+            var updatePr = ApiEndPoints.UpdatePurchasedRequisition(id);
+            var token = User.FindFirst("AccessToken")?.Value;
+
+            if (string.IsNullOrEmpty(token))
             {
-                return RedirectToAction(nameof(Index));
+                return View("Login", "Login");
             }
-            catch
+
+            var response = await _baseApiService.UpdateAsync<PrDetailResponseModel, PrDetailResponseModel>(updatePr, model, token);
+            if (!response.Success && response.Message == "Unauthorized")
             {
-                return View();
+                return View("Login", "Login");
             }
+            else if (!response.Success)
+            {
+                ModelState.AddModelError("", response.Message);
+                return View("UpdatePr", model);
+            }
+
+            return RedirectToAction(nameof(PrList));
         }
 
-        // GET: PrController/Delete/5
-        public ActionResult Delete(int id)
+       
+        public async Task<ActionResult> Delete(int id)
         {
-            return View();
-        }
+            var deletePr = ApiEndPoints.DeletePurchasedRequisition(id);
+            var token = User.FindFirst("AccessToken")?.Value;
 
-        // POST: PrController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
+            if (string.IsNullOrEmpty(token))
             {
-                return RedirectToAction(nameof(Index));
+                return View("Login", "Login");
             }
-            catch
+
+            var response = await _baseApiService.DeleteAsync<object, string>(deletePr, token);
+            if (!response.Success && response.Message == "Unauthorized")
             {
-                return View();
+                return View("Login", "Login");
             }
+            
+            return RedirectToAction(nameof(PrList));
         }
     }
 }

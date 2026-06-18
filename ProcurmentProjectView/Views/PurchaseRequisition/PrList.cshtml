@@ -1,4 +1,4 @@
-@model IEnumerable<ProcurmentProjectView.Models.PurchasedRequisitionModel>
+@model IEnumerable<ProcurmentProjectView.Models.PrDetailResponseModel>
 
 @{
     ViewData["Title"] = "Purchase Requisition List";
@@ -37,19 +37,19 @@
                         {
                             <tr>
                                 <td class="fw-bold">@item.Title</td>
-                                <td>@item.EstimatedBudget</td>
+                                <td>@item.EstimationBudget</td>
                                 <td>@item.Quantity</td>
-                                <td>@item.DeliveryDate.ToString("yyyy-MM-dd")</td>
-                                <td class="text-truncate" style="max-width: 200px;" title="@item.Note">@item.Note</td>
+                                <td>@item.DeliveryDate</td>
+                                <td class="text-truncate" style="max-width: 200px;" title="@item.Title">@item.Title</td>
                                 <td class="text-end">
                                     <!-- Dynamic edit/delete/view icons -->
-                                    <a class="btn btn-link text-danger p-0 me-2" asp-controller="PurchaseRequisition" asp-action="Delete" asp-route-id="@item.Id" title="Delete">
+                                    <a class="btn btn-link text-danger p-0 me-2" asp-controller="PurchaseRequisition" asp-action="Delete" asp-route-id="@item.PrId" title="Delete">
                                         <i class="bi bi-trash"></i>
                                     </a>
-                                    <a class="btn btn-link text-primary p-0 me-2" asp-controller="PurchaseRequisition" asp-action="Details" asp-route-id="@item.Id" title="View Details">
+                                    <a class="btn btn-link text-primary p-0 me-2" asp-controller="PurchaseRequisition" asp-action="Detail" asp-route-id="@item.PrId" title="View Details">
                                         <i class="bi bi-eye"></i>
                                     </a>
-                                    <a class="btn btn-link text-success p-0" asp-controller="PurchaseRequisition" asp-action="Edit" asp-route-id="@item.Id" title="Edit">
+                                    <a class="btn btn-link text-success p-0 me-2" asp-controller="PurchaseRequisition" asp-action="Edit" asp-route-id="@item.PrId" title="Edit">
                                         <i class="bi bi-pencil-square"></i>
                                     </a>
                                 </td>

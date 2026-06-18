@@ -18,5 +18,12 @@ namespace ProcurmentProjectView.Controllers
         {
             return View();
         }
+
+        public async Task<ActionResult> SendEmail(int id)
+        {
+            // Placeholder for Send Email logic
+            TempData["Message"] = "Email sent successfully for RFQ ID: " + id;
+            return RedirectToAction(nameof(RfqList));
+        }
     }
 }

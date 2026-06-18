@@ -1,39 +1,58 @@
-@{
-    ViewData["Title"] = "Update Product";
+@model ProcurmentProjectView.Models.PrDetailResponseModel
+@if(Model == null)
+{
+    <div class="container mt-5">
+        <div class="alert alert-danger text-center">
+            <h4>
+                Error: Purchased Requisition is not Found
+            </h4>
+            <p>The requested Pr data Could not be loaded or does not exist</p>
+            <a asp-controller ="PurchaseRequisition" asp-action="PrList" class="btn btn-primary">Back To List</a>
+        </div>
+    </div>
+
+    return;
 }
-@model ProcurmentProjectView.Models.ProductModel
+@{
+
+    ViewData["Title"] = "Update Purchase Requisition";
+}
 
 <div class="container-fluid ps-4 pt-4">
     <div class="mb-4">
-        <h1 class="display-6 fw-bold mb-1">Update Product</h1>
-        <p class="text-muted mb-0">Edit product information.</p>
+        <h1 class="display-6 fw-bold mb-1">Update Purchase Requisition</h1>
+        <p class="text-muted mb-0">Edit PR information.</p>
     </div>
 
     <div class="card border-0 shadow-sm" style="max-width: 720px;">
         <div class="card-body">
-            <form asp-action="EditProduct" asp-controller="Product" method="post" >
+            <form asp-action="Edit" asp-controller="PurchaseRequisition" method="post" >
                 <div class="row g-3">
-                    <input type="hidden" asp-for="Id" value="@Model.Id" />
+                    <input type="hidden" name="id" value="@ViewContext.RouteData.Values["id"]" />
                     <div class="col-md-6">
-                        <label class="form-label">Product Name</label>
-                        <input type="text" class="form-control" asp-for="Name" value="@Model.Name" />
+                        <label class="form-label">Title</label>
+                        <input type="text" class="form-control" asp-for="Title" />
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label">Company</label>
-                        <input type="text" class="form-control" asp-for="Company" value="@Model.Company" />
+                        <label class="form-label">Estimated Budget</label>
+                        <input type="text" class="form-control" asp-for="EstimationBudget" />
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label">UPC</label>
-                        <input type="text" class="form-control"asp-for="Upc" value="@Model.Upc" />
+                        <label class="form-label">Quantity</label>
+                        <input type="number" class="form-control" asp-for="Quantity" />
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label">Description</label>
-                        <input type="text" class="form-control" asp-for="Description" value="@Model.Description" />
+                        <label class="form-label">Delivery Date</label>
+                        <input type="date" class="form-control" asp-for="DeliveryDate" />
                     </div>
+                    @* <div class="col-md-12">
+                        <label class="form-label">Note</label>
+                        <textarea class="form-control" asp-for="Note" rows="3"></textarea>
+                    </div> *@
                 </div>
                 <div class="mt-4">
-                    <button type="submit" class="btn btn-primary">Update Product</button>
-                    <button type="reset" class="btn btn-outline-secondary ms-2">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Update PR</button>
+                    <a asp-action="PrList" class="btn btn-outline-secondary ms-2">Cancel</a>
                 </div>
             </form>
         </div>

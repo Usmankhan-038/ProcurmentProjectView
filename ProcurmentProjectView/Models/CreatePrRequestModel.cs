@@ -5,10 +5,10 @@ namespace ProcurmentProjectView.Models
 {
     public class CreatePrRequestModel
     {
-        [JsonPropertyName("prRequest")]
-        public PrRequestDto PrRequest { get; set; } = new PrRequestDto();
+        [JsonPropertyName("message")]
+        public string Message { get; set; } = string.Empty;
 
-        [JsonPropertyName("products")]
-        public List<PrProductDto> Products { get; set; } = new List<PrProductDto>();
+        [JsonPropertyName("data")]
+        public List<PrDetailResponseModel> Data { get; set; } = new List<PrDetailResponseModel>();
     }
 }

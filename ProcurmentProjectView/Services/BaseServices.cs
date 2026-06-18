@@ -1,4 +1,4 @@
-﻿using ProcurmentProjectView.Config;
+using ProcurmentProjectView.Config;
 using ProcurmentProjectView.Interfaces;
 using ProcurmentProjectView.Models;
 using System.Net;
@@ -29,7 +29,8 @@ namespace ProcurmentProjectView.Services
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var result = await response.Content.ReadFromJsonAsync<ResponseModel<T>>();
+                    var options = new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                    var result = await response.Content.ReadFromJsonAsync<ResponseModel<T>>(options);
                     return result ?? new ResponseModel<T> { Message = "There are no Data found", Success = false };
                 }
 

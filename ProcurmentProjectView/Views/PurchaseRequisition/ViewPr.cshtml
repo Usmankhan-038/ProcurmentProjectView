@@ -1,5 +1,20 @@
-@model ProcurmentProjectView.Models.CreatePrRequestModel
+@model ProcurmentProjectView.Models.PrDetailResponseModel
 
+
+@if (Model == null)
+{
+    <div class="container mt-5">
+        <div class="alert alert-danger text-center">
+            <h4>Error: Purchase Requisition Not Found</h4>
+            <p>The requested Pr data Could not be loaded or does not exist</p>
+            <a asp-controller ="PurchaseRequisition" asp-action="PrList" class="btn btn-primary">Back To List</a>
+        </div>
+
+    </div>
+   
+    return;
+    
+}
 @{
     ViewData["Title"] = "PR Details";
 }
@@ -14,7 +29,7 @@
             <a asp-controller="PurchaseRequisition" asp-action="PrList" class="btn btn-outline-secondary me-2">
                 Back to List
             </a>
-            <a asp-controller="PurchaseRequisition" asp-action="Edit" class="btn text-white" style="background-color: #0F52BA;">
+            <a asp-controller="PurchaseRequisition" asp-action="Edit" asp-route-id='@ViewContext.RouteData.Values["id"]' class="btn text-white" style="background-color: #0F52BA;">
                 Edit PR
             </a>
         </div>
@@ -29,26 +44,26 @@
             <div class="row g-4">
                 <div class="col-md-3">
                     <p class="text-muted mb-1 small text-uppercase fw-bold">Title</p>
-                    <p class="mb-0 fs-5">@Model.PrRequest.Title</p>
+                    <p class="mb-0 fs-5">@Model.Title</p>
                 </div>
                 <div class="col-md-3">
                     <p class="text-muted mb-1 small text-uppercase fw-bold">Estimated Budget</p>
-                    <p class="mb-0 fs-5">@Model.PrRequest.EstimatedBudget</p>
+                    <p class="mb-0 fs-5">@Model.EstimationBudget</p>
                 </div>
                 <div class="col-md-3">
                     <p class="text-muted mb-1 small text-uppercase fw-bold">Quantity</p>
-                    <p class="mb-0 fs-5">@Model.PrRequest.Quantity</p>
+                    <p class="mb-0 fs-5">@Model.Quantity</p>
                 </div>
                 <div class="col-md-3">
                     <p class="text-muted mb-1 small text-uppercase fw-bold">Delivery Date</p>
-                    <p class="mb-0 fs-5">@Model.PrRequest.DeliveryDate</p>
+                    <p class="mb-0 fs-5">@Model.DeliveryDate</p>
                 </div>
-                <div class="col-12">
+                @* <div class="col-12">
                     <p class="text-muted mb-1 small text-uppercase fw-bold">Note</p>
                     <div class="p-3 bg-light rounded border-start border-4 border-primary">
-                        <p class="mb-0">@Model.PrRequest.Note</p>
+                        <p class="mb-0">@Model.Note</p>
                     </div>
-                </div>
+                </div> *@
             </div>
         </div>
     </div>
@@ -56,37 +71,40 @@
     <!-- Products List -->
     <div class="d-flex justify-content-between align-items-center mb-3 mt-4">
         <h4 class="fw-bold mb-0">Products</h4>
-        <button type="button" class="btn btn-sm btn-outline-success" onclick="alert('Static functionality - implement add product')">
+        <a asp-controller="Product" asp-action="AddProduct" class="btn btn-sm btn-outline-success">
             <i class="bi bi-plus-lg"></i> Add Product
-        </button>
+        </a>
     </div>
 
     <div class="row g-3">
-        @if(Model.Products != null && Model.Products.Any())
+        @if (Model.Products != null && Model.Products.Any())
         {
-            @foreach(var product in Model.Products)
+            @foreach (var product in Model.Products)
             {
                 <div class="col-md-6 col-lg-4">
                     <div class="card border-0 shadow-sm h-100 product-card position-relative">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-start mb-2">
-                                <h5 class="card-title fw-bold text-dark mb-0">@product.Name</h5>
+                                <h5 class="card-title fw-bold text-dark mb-0">@product.GetName()</h5>
                                 <div class="action-buttons">
-                                    <button class="btn btn-sm btn-link text-success p-0 me-2" title="Edit" onclick="alert('Static functionality - edit product')">
+                                    <a asp-controller="Product" asp-action="ViewProduct" asp-route-id="@product.Id" class="btn btn-sm btn-link text-primary p-0 me-2" title="View">
+                                        <i class="bi bi-eye fs-5"></i>
+                                    </a>
+                                    <a asp-controller="Product" asp-action="UpdateProduct" asp-route-id="@product.Id" class="btn btn-sm btn-link text-success p-0 me-2" title="Edit">
                                         <i class="bi bi-pencil-square fs-5"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-link text-danger p-0" title="Delete" onclick="alert('Static functionality - delete product')">
+                                    </a>
+                                    <a asp-controller="Product" asp-action="DeleteProduct" asp-route-id="@product.Id" class="btn btn-sm btn-link text-danger p-0" title="Delete">
                                         <i class="bi bi-trash fs-5"></i>
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
-                            <h6 class="card-subtitle mb-3 text-muted">@product.Company</h6>
+                            <h6 class="card-subtitle mb-3 text-muted">@product.GetCompany()</h6>
                             
                             <div class="mb-2">
                                 <span class="badge bg-secondary me-1">UPC:</span>
-                                <span class="text-dark fw-medium">@product.Upc</span>
+                                <span class="text-dark fw-medium">@product.GetUpc()</span>
                             </div>
-                            <p class="card-text text-muted small mt-3">@product.Description</p>
+                            <p class="card-text text-muted small mt-3">@product.GetDescription()</p>
                         </div>
                     </div>
                 </div>

@@ -12,31 +12,31 @@
 
     <div class="card border-0 shadow-sm mb-4">
         <div class="card-body">
-            <form id="prForm">
+            <form asp-action="SavePrResult" asp-controller="PurchaseRequisition" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 
                 <h4 class="mb-3">PR Details</h4>
                 <div class="row g-3">
                     <div class="col-md-6">
                         <label class="form-label">Title</label>
-                        <input type="text" asp-for="PrRequest.Title" class="form-control" placeholder="Enter PR Title" />
+                        <input type="text" asp-for="Data[0].Title" class="form-control" placeholder="Enter PR Title" />
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Estimated Budget</label>
-                        <input type="text" asp-for="PrRequest.EstimatedBudget" class="form-control" placeholder="Enter Estimated Budget" />
+                        <input type="text" asp-for="Data[0].EstimationBudget" class="form-control" placeholder="Enter Estimated Budget" />
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Quantity</label>
-                        <input type="number" asp-for="PrRequest.Quantity" class="form-control" placeholder="Enter Quantity" />
+                        <input type="number" asp-for="Data[0].Quantity" class="form-control" placeholder="Enter Quantity" />
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Delivery Date</label>
-                        <input type="date" asp-for="PrRequest.DeliveryDate" class="form-control" />
+                        <input type="date" asp-for="Data[0].DeliveryDate" class="form-control" />
                     </div>
-                    <div class="col-md-12">
+                    @* <div class="col-md-12">
                         <label class="form-label">Note</label>
-                        <textarea asp-for="PrRequest.Note" class="form-control" rows="3" placeholder="Enter notes"></textarea>
-                    </div>
+                        <textarea asp-for="Data[0].Note" class="form-control" rows="3" placeholder="Enter notes"></textarea>
+                    </div> *@
                 </div>
 
                 <hr class="my-4" />
@@ -76,7 +76,7 @@
                 </div>
 
                 <div class="mt-4">
-                    <button type="button" class="btn btn-primary" onclick="alert('Static page - implement submission logic')">Save PR & Products</button>
+                    <button type="submit" class="btn btn-primary" >Save PR & Products</button>
                     <button type="reset" class="btn btn-outline-secondary ms-2">Clear</button>
                 </div>
             </form>

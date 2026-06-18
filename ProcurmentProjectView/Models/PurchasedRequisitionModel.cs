@@ -1,22 +1,32 @@
-﻿using System.Text.Json.Serialization;
+﻿using ProcurmentProjectView.DTOs;
+using System.Text.Json.Serialization;
 
 namespace ProcurmentProjectView.Models
 {
-    public class PurchasedRequisitionModel
+    public class PrDetailResponseModel
     {
-        public int Id { get; set; }
+        [JsonPropertyName("prId")]
+        public int PrId { get; set; }
+
+        [JsonPropertyName("title")]
+        public string Title { get; set; } = string.Empty;
+
         [JsonPropertyName("quantity")]
         public int Quantity { get; set; }
-        [JsonPropertyName("estimated_budget")]
-        public string EstimatedBudget { get; set; } = default!;
-        [JsonPropertyName("title")]
-        public string Title { get; set; } = default!;
-        [JsonPropertyName("deliveryDate")]
-        public DateOnly DeliveryDate { get; set; }
-        [JsonPropertyName("note")]
-        public string Note { get; set; } = default!;
-        [JsonPropertyName("products")]
-        public ProductModel Product { get; set; } = default!;
 
+        [JsonPropertyName("estimationBudget")]
+        public string EstimationBudget { get; set; } = string.Empty;
+
+        [JsonPropertyName("deliveryDate")]
+        public string? DeliveryDate { get; set; }
+
+        [JsonPropertyName("createdDate")]
+        public DateTime CreatedDate { get; set; }
+        //[JsonPropertyName("note")]
+        //public string Note { get; set; }
+
+        // Mapped to match "product" array in JSON
+        [JsonPropertyName("product")]
+        public List<PrProductDto> Products { get; set; } = new List<PrProductDto>();
     }
 }
