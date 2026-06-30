@@ -1,0 +1,69 @@
+pipeline {
+    agent any
+
+    environment {
+        // --- UPDATED FROM YOUR SCREENSHOT ---
+        AZURE_WEB_APP_NAME = 'procurmentProjectView'
+        AZURE_RESOURCE_GROUP = 'procurmentProjectView_group'
+        
+        // --- YOU STILL NEED TO ADD THIS ---
+        AZURE_TENANT_ID = '6e17fd84-5510-430f-bfe3-b39cf0c52655'
+        
+        // This must match the ID you gave the credential in Jenkins
+        AZURE_CREDENTIAL_ID = 'azure-service-principal'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                echo 'Checking out code from source control...'
+                checkout scm
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building the .NET application...'
+                // Using 'sh' instead of 'bat' for Linux
+                sh 'dotnet build ProcurmentProjectView.sln --configuration Release'
+            }
+        }
+
+        stage('Publish') {
+            steps {
+                echo 'Publishing the .NET application...'
+                // Using 'sh' instead of 'bat' for Linux
+                sh 'dotnet publish ProcurmentProjectView.sln --configuration Release --output ./publish'
+            }
+        }
+
+        stage('Deploy to Azure') {
+            steps {
+                echo 'Packaging application for deployment...'
+                // Using standard Linux zip command. Navigates into the folder to zip the contents.
+                sh 'cd publish && zip -r ../deploy.zip .'
+
+                echo 'Deploying to Azure App Service...'
+                withCredentials([usernamePassword(credentialsId: "${AZURE_CREDENTIAL_ID}", 
+                                                 passwordVariable: 'AZURE_PASSWORD', 
+                                                 usernameVariable: 'AZURE_USERNAME')]) {
+                    
+                    // 1. Log in to Azure CLI (using escaped variables for security in shell)
+                    sh "az login --service-principal -u \$AZURE_USERNAME -p \$AZURE_PASSWORD --tenant ${AZURE_TENANT_ID}"
+                    
+                    // 2. Push the zip file to the App Service
+                    sh "az webapp deploy --name ${AZURE_WEB_APP_NAME} --resource-group ${AZURE_RESOURCE_GROUP} --src-path ./deploy.zip"
+                    
+                    echo 'Successfully deployed to Azure!'
+                }
+            }
+        }
+    }
+    
+    post {
+        always {
+            echo 'Cleaning up workspace...'
+            cleanWs() 
+        }
+    }
+}

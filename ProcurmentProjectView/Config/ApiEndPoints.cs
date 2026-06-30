@@ -14,7 +14,7 @@ namespace ProcurmentProjectView.Config
         public static string UpdatePurchasedRequisition(int id) => $"/api/PurchasedRequisition/update-pr?prId={id}";
         public static string GetAllPurchasedRequisition() => "/api/PurchasedRequisition/get-all-pr-request";
         public static string GetPurchasedRequisitionById(int id) => $"/api/PurchasedRequisition/get-pr-request-byId?prId={id}";
-        public static string DeletePurchasedRequisition(int id) => $"/api/PurchasedRequisition/delete-pr?prId={id}";
+        public static string DeletePurchasedRequisition(int id) => $"/api/PurchasedRequisition/delete-pr-request?prId={id}";
 
 
     }

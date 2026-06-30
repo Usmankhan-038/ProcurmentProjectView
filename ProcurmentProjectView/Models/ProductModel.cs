@@ -19,6 +19,6 @@ namespace ProcurmentProjectView.Models
         [JsonPropertyName("upc")]
         public string Upc { get; set; } = default!;
         
-        public DateTime createdAt { get; set; } 
+        public DateTime CreatedAt { get; set; } 
     }
 }
