@@ -29,6 +29,7 @@ pipeline {
             }
         }
 
+
         stage('Publish') {
             steps {
                 echo 'Publishing the .NET application...'
